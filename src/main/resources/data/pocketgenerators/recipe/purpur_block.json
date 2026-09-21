@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:purpur_block" },
+  "tier_required": "end",
+  "base_ticks": 380
+}

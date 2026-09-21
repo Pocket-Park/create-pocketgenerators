@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:nether_gold_ore" },
+  "tier_required": "netherite",
+  "base_ticks": 300
+}

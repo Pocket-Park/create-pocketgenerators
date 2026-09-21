@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:raw_copper_block" },
+  "tier_required": "basic",
+  "base_ticks": 420
+}

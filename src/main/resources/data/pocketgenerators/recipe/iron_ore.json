@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:iron_ore" },
+  "tier_required": "andesite",
+  "base_ticks": 260
+}

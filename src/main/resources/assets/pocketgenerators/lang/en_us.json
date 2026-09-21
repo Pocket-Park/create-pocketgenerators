@@ -1,0 +1,37 @@
+{
+  "itemGroup.pocketgenerators": "Pocket Generators",
+  "block.pocketgenerators.resource_generator": "Duplicator",
+  "item.pocketgenerators.resource_generator_basic": "Basic Duplicator",
+  "item.pocketgenerators.resource_generator_andesite": "Andesite Duplicator",
+  "item.pocketgenerators.resource_generator_brass": "Brass Duplicator",
+  "item.pocketgenerators.resource_generator_netherite": "Netherite Duplicator",
+  "item.pocketgenerators.resource_generator_end": "End Duplicator",
+
+  "pocketgenerators.tier.basic": "Basic",
+  "pocketgenerators.tier.andesite": "Andesite",
+  "pocketgenerators.tier.brass": "Brass",
+  "pocketgenerators.tier.netherite": "Netherite",
+  "pocketgenerators.tier.end": "End",
+
+  "category.pocketgenerators.resource_generating": "Duplicating",
+  "category.pocketgenerators.tier_required": "Requires: %s tier",
+
+  "pocketgenerators.batch_size.changed": "Batch size: %s",
+
+  "item.pocketgenerators.resource_generator.tooltip.summary": "Duplicates whatever item sits in its filter, powered by rotation.",
+  "item.pocketgenerators.resource_generator.tooltip.tier": "Tier: %s",
+  "item.pocketgenerators.resource_generator.tooltip.min_rpm": "Minimum speed: %s RPM",
+  "item.pocketgenerators.resource_generator.tooltip.stress": "Stress impact: %s SU",
+  "item.pocketgenerators.resource_generator.tooltip.usage": "Right-click with an item to set the filter, wrench to pick the output side",
+  "item.pocketgenerators.resource_generator.tooltip.nether_only": "Only duplicates items exclusive to the Nether",
+  "item.pocketgenerators.resource_generator.tooltip.end_only": "Only duplicates items exclusive to the End",
+  "item.pocketgenerators.resource_generator.tooltip.batch_selector": "Scroll while looking at it to pick a batch size (1-64)",
+
+  "pocketgenerators.output_facing.changed": "Output: %s",
+  "pocketgenerators.direction.down": "Down",
+  "pocketgenerators.direction.up": "Up",
+  "pocketgenerators.direction.north": "North",
+  "pocketgenerators.direction.south": "South",
+  "pocketgenerators.direction.west": "West",
+  "pocketgenerators.direction.east": "East"
+}

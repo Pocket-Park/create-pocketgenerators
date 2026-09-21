@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:netherite_scrap" },
+  "tier_required": "netherite",
+  "base_ticks": 900
+}

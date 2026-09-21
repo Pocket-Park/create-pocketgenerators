@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:deepslate_coal_ore" },
+  "tier_required": "basic",
+  "base_ticks": 220
+}

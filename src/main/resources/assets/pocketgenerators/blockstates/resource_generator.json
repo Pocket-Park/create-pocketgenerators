@@ -1,0 +1,23 @@
+{
+  "multipart": [
+    { "when": { "axis": "y", "tier": "basic" }, "apply": { "model": "pocketgenerators:block/resource_generator_basic" } },
+    { "when": { "axis": "x", "tier": "basic" }, "apply": { "model": "pocketgenerators:block/resource_generator_basic", "x": 90, "y": 90 } },
+    { "when": { "axis": "z", "tier": "basic" }, "apply": { "model": "pocketgenerators:block/resource_generator_basic", "x": 90 } },
+
+    { "when": { "axis": "y", "tier": "andesite" }, "apply": { "model": "pocketgenerators:block/resource_generator_andesite" } },
+    { "when": { "axis": "x", "tier": "andesite" }, "apply": { "model": "pocketgenerators:block/resource_generator_andesite", "x": 90, "y": 90 } },
+    { "when": { "axis": "z", "tier": "andesite" }, "apply": { "model": "pocketgenerators:block/resource_generator_andesite", "x": 90 } },
+
+    { "when": { "axis": "y", "tier": "brass" }, "apply": { "model": "pocketgenerators:block/resource_generator_brass" } },
+    { "when": { "axis": "x", "tier": "brass" }, "apply": { "model": "pocketgenerators:block/resource_generator_brass", "x": 90, "y": 90 } },
+    { "when": { "axis": "z", "tier": "brass" }, "apply": { "model": "pocketgenerators:block/resource_generator_brass", "x": 90 } },
+
+    { "when": { "axis": "y", "tier": "netherite" }, "apply": { "model": "pocketgenerators:block/resource_generator_netherite" } },
+    { "when": { "axis": "x", "tier": "netherite" }, "apply": { "model": "pocketgenerators:block/resource_generator_netherite", "x": 90, "y": 90 } },
+    { "when": { "axis": "z", "tier": "netherite" }, "apply": { "model": "pocketgenerators:block/resource_generator_netherite", "x": 90 } },
+
+    { "when": { "axis": "y", "tier": "end" }, "apply": { "model": "pocketgenerators:block/resource_generator_end" } },
+    { "when": { "axis": "x", "tier": "end" }, "apply": { "model": "pocketgenerators:block/resource_generator_end", "x": 90, "y": 90 } },
+    { "when": { "axis": "z", "tier": "end" }, "apply": { "model": "pocketgenerators:block/resource_generator_end", "x": 90 } }
+  ]
+}

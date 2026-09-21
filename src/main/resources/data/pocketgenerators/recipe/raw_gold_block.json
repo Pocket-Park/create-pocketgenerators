@@ -1,0 +1,6 @@
+{
+  "type": "pocketgenerators:resource_generating",
+  "ingredient": { "item": "minecraft:raw_gold_block" },
+  "tier_required": "brass",
+  "base_ticks": 560
+}
