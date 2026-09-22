@@ -16,12 +16,11 @@
 
 ## Publication
 
-- [ ] Décider d'une licence de distribution (actuellement `All Rights Reserved` par défaut dans `gradle.properties`, choix à confirmer si publication prévue).
+- [x] Décider d'une licence de distribution — MIT retenu (`LICENSE`, `gradle.properties: mod_license=MIT`, mentionné dans le README).
 - [x] Structure de branches `main`/`dev` + workflows de release/snapshot mis en place (`.github/workflows/release.yml`, `.github/workflows/snapshot.yml`).
-- [ ] Créer le projet sur Modrinth et récupérer son slug/ID.
-- [ ] Créer un token API Modrinth (Modrinth → Settings → API Keys, scope `Create versions`).
-- [ ] Ajouter les secrets GitHub `MODRINTH_TOKEN` et `MODRINTH_PROJECT_ID` (Settings → Secrets and variables → Actions du repo).
-- [ ] Pousser la branche `dev` sur `origin` pour activer `snapshot.yml`.
+- [x] Créer le projet sur Modrinth et récupérer son slug/ID.
+- [x] Créer un token API Modrinth et ajouter les secrets GitHub `MODRINTH_TOKEN` / `MODRINTH_PROJECT_ID`.
+- [x] Pousser la branche `dev` sur `origin` (fait, `snapshot.yml` actif).
 - [ ] Premier tag `v0.1.0` (ou une version bump) pour valider `release.yml` de bout en bout.
 
 ## Notes

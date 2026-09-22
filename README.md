@@ -38,3 +38,7 @@ Dépendances : NeoForge 21.1.251, Create 6.0.10-280, Ponder 1.0.82, Flywheel 1.0
 
 - [`docs/API.md`](docs/API.md) — points d'extension internes (tiers, recettes, config) et API Create utilisées.
 - [`docs/RECIPES.md`](docs/RECIPES.md) — format des recettes de duplication et des recettes de craft, avec la liste complète.
+
+## Licence
+
+[MIT](LICENSE).
