@@ -21,7 +21,7 @@
 - [x] Créer le projet sur Modrinth et récupérer son slug/ID.
 - [x] Créer un token API Modrinth et ajouter les secrets GitHub `MODRINTH_TOKEN` / `MODRINTH_PROJECT_ID`.
 - [x] Pousser la branche `dev` sur `origin` (fait, `snapshot.yml` actif).
-- [ ] Premier tag `v0.1.0` (ou une version bump) pour valider `release.yml` de bout en bout.
+- [ ] **Premier tag `v0.1.0` (release) : bloqué volontairement** tant que le mod n'a pas été validé en jeu avec le groupe de joueurs. On reste sur des snapshots `dev` en attendant leur retour.
 
 ## Notes
 
