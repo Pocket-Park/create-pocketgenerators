@@ -16,7 +16,7 @@
   "category.pocketgenerators.resource_generating": "Duplicating",
   "category.pocketgenerators.tier_required": "Requires: %s tier",
 
-  "pocketgenerators.batch_size.changed": "Batch size: %s",
+  "pocketgenerators.batch_size": "Batch Size",
 
   "item.pocketgenerators.resource_generator.tooltip.summary": "Duplicates whatever item sits in its filter, powered by rotation.",
   "item.pocketgenerators.resource_generator.tooltip.tier": "Tier: %s",
@@ -25,7 +25,7 @@
   "item.pocketgenerators.resource_generator.tooltip.usage": "Right-click with an item to set the filter, wrench to pick the output side",
   "item.pocketgenerators.resource_generator.tooltip.nether_only": "Only duplicates items exclusive to the Nether",
   "item.pocketgenerators.resource_generator.tooltip.end_only": "Only duplicates items exclusive to the End",
-  "item.pocketgenerators.resource_generator.tooltip.batch_selector": "Scroll while looking at it to pick a batch size (1-64)",
+  "item.pocketgenerators.resource_generator.tooltip.batch_selector": "Hold right-click on its top face to pick a batch size (1-64)",
 
   "pocketgenerators.output_facing.changed": "Output: %s",
   "pocketgenerators.direction.down": "Down",

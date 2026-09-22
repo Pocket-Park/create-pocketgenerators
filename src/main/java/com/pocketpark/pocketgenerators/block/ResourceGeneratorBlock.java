@@ -79,7 +79,9 @@ public class ResourceGeneratorBlock extends RotatedPillarKineticBlock implements
      * Right-click with an item sets/replaces the filter (the reference item to duplicate). Right-click
      * empty-handed empties the output buffer; sneaking + empty-handed instead withdraws the filter item.
      * Stand-in for a proper GUI (design doc step 6, deliberately skipped since we chose a physical slot).
-     * The Brass batch size is set separately, by hovering the block and scrolling (ScrollValueBehaviour).
+     * The Brass batch size is a separate control entirely (Create's own ScrollValueBehaviour dial, hold
+     * right-click on the top face): Create's ValueSettingsInputHandler intercepts and cancels that click
+     * before this method ever runs, so no special-casing is needed here.
      */
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {

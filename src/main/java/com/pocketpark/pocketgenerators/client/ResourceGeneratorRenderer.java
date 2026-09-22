@@ -8,13 +8,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Rests the filter item on top of the block, Basin-style, instead of floating high above it. The
- * current batch size is shown separately by hovering the block (Create's ScrollValueBehaviour overlay,
- * same as the Speed Controller), not as a text label rendered here.
+ * Rests the filter item on top of the block, Basin/Depot-style, instead of floating high above it.
+ * Uses the same lower-level ItemRenderer#render(...) + explicit BakedModel + FIXED context that
+ * Create's own DepotRenderer uses; the higher-level renderStatic(..., GROUND, ...) rendered pure black
+ * for us here.
  */
 public class ResourceGeneratorRenderer implements BlockEntityRenderer<ResourceGeneratorBlockEntity> {
 
@@ -28,15 +31,16 @@ public class ResourceGeneratorRenderer implements BlockEntityRenderer<ResourceGe
         if (filterStack.isEmpty())
             return;
 
-        Minecraft minecraft = Minecraft.getInstance();
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        BakedModel bakedModel = itemRenderer.getModel(filterStack, be.getLevel(), null, 0);
 
         poseStack.pushPose();
         poseStack.translate(0.5, 1.05, 0.5);
         float rotation = (be.getLevel().getGameTime() % 360) + partialTick;
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation * 2f));
         poseStack.scale(0.4f, 0.4f, 0.4f);
-        minecraft.getItemRenderer().renderStatic(filterStack, ItemDisplayContext.GROUND, packedLight, packedOverlay,
-                poseStack, bufferSource, be.getLevel(), 0);
+        itemRenderer.render(filterStack, ItemDisplayContext.FIXED, false, poseStack, bufferSource,
+                packedLight, packedOverlay, bakedModel);
         poseStack.popPose();
     }
 }

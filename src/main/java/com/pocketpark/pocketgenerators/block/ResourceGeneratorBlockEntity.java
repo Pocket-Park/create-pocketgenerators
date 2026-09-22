@@ -1,26 +1,34 @@
 package com.pocketpark.pocketgenerators.block;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.pocketpark.pocketgenerators.Config;
 import com.pocketpark.pocketgenerators.recipe.ResourceGeneratorRecipe;
 import com.pocketpark.pocketgenerators.registry.ModBlockEntities;
 import com.pocketpark.pocketgenerators.registry.ModRecipeTypes;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
+import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.foundation.utility.CreateLang;
 
+import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -44,11 +52,10 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
     public final ItemStackHandler outputInv = new ItemStackHandler(9);
     public final IItemHandler capability = new GeneratorInventoryHandler();
 
-    // Batch size, Brass tier only: adjusted client-side by shift + scroll while looking at the block
-    // (see PocketGeneratorsClient), a plain field we fully control instead of Create's ScrollValueBehaviour
-    // (its Outliner-based overlay rendered wrong for us and its right-click gesture collided with the
-    // filter-setting interaction). Stress cost scales with it directly.
-    private int outputCount = 1;
+    // Batch size, Brass tier only. Create's own value-settings dial: hold right-click on the top face
+    // to open it, same widget/gesture as the Speed Controller or Sequenced Gearshift. Stress cost
+    // scales with it directly.
+    private ScrollValueBehaviour batchSize;
 
     private ResourceGeneratorRecipe lastRecipe;
     private int timer;
@@ -60,6 +67,17 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.RESOURCE_GENERATOR.get(),
                 (be, side) -> be.capability);
+    }
+
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        super.addBehaviours(behaviours);
+
+        batchSize = new ScrollValueBehaviour(CreateLang.translateDirect("pocketgenerators.batch_size"), this, new BatchSizeSlot())
+                .between(1, 64)
+                .onlyActiveWhen(() -> getTier() == Tier.BRASS);
+        batchSize.value = 1;
+        behaviours.add(batchSize);
     }
 
     @Override
@@ -138,7 +156,7 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
      */
     @Override
     public float calculateStressApplied() {
-        float impact = getTier().getStressImpact() * outputCount;
+        float impact = getTier().getStressImpact() * getOutputCount();
         this.lastStressApplied = impact;
         return impact;
     }
@@ -174,20 +192,19 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
 
     private void generate(ResourceGeneratorRecipe recipe) {
         ItemStack result = recipe.assemble(new SingleRecipeInput(filterInv.getStackInSlot(0)), level.registryAccess());
-        result.setCount(Math.min(outputCount, result.getMaxStackSize()));
+        result.setCount(Math.min(getOutputCount(), result.getMaxStackSize()));
         ItemHandlerHelper.insertItemStacked(outputInv, result, false);
         setChanged();
         sendData();
     }
 
+    /**
+     * ScrollValueBehaviour#read() does an unguarded nbt.getInt("ScrollValue"), which defaults to 0 for
+     * any save that predates this field (or hasn't round-tripped through write() yet). Clamping here
+     * keeps a stray 0 from producing an empty stack and zeroing out stress on every tier, not just Brass.
+     */
     public int getOutputCount() {
-        return outputCount;
-    }
-
-    public void setOutputCount(int count) {
-        outputCount = Mth.clamp(count, 1, 64);
-        setChanged();
-        sendData();
+        return Math.max(1, batchSize.getValue());
     }
 
     public void setFilterItem(Player player, ItemStack heldStack) {
@@ -231,7 +248,6 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
     @Override
     public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         compound.putInt("Timer", timer);
-        compound.putInt("OutputCount", outputCount);
         compound.put("FilterInventory", filterInv.serializeNBT(registries));
         compound.put("OutputInventory", outputInv.serializeNBT(registries));
         super.write(compound, registries, clientPacket);
@@ -240,7 +256,6 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
     @Override
     protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         timer = compound.getInt("Timer");
-        outputCount = Mth.clamp(compound.contains("OutputCount") ? compound.getInt("OutputCount") : 1, 1, 64);
         filterInv.deserializeNBT(registries, compound.getCompound("FilterInventory"));
         outputInv.deserializeNBT(registries, compound.getCompound("OutputInventory"));
         super.read(compound, registries, clientPacket);
@@ -271,6 +286,24 @@ public class ResourceGeneratorBlockEntity extends KineticBlockEntity {
             if (getHandlerFromIndex(getIndexForSlot(slot)) == filterInv)
                 return ItemStack.EMPTY;
             return super.extractItem(slot, amount, simulate);
+        }
+    }
+
+    /** Hotspot for the batch size dial: the whole top face, generously sized so it's easy to hit. */
+    private static class BatchSizeSlot extends ValueBoxTransform {
+        @Override
+        public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
+            return new Vec3(.5, 15 / 16f, .5);
+        }
+
+        @Override
+        public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
+            TransformStack.of(ms).rotateXDegrees(90);
+        }
+
+        @Override
+        public float getScale() {
+            return 0.9f;
         }
     }
 }

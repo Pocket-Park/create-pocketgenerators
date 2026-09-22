@@ -1,0 +1,19 @@
+{
+  "type": "create:mechanical_crafting",
+  "category": "redstone",
+  "accept_mirrored": true,
+  "key": {
+    "N": { "item": "minecraft:netherite_ingot" },
+    "S": { "item": "minecraft:netherite_scrap" },
+    "P": { "item": "create:precision_mechanism" },
+    "D": { "item": "pocketgenerators:resource_generator_brass" }
+  },
+  "pattern": [
+    "NNNNN",
+    "NSPSN",
+    "NPDPN",
+    "NSPSN",
+    "NNNNN"
+  ],
+  "result": { "id": "pocketgenerators:resource_generator_netherite", "count": 1 }
+}

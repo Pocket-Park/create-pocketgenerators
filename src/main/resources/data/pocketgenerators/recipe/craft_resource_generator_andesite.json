@@ -1,0 +1,18 @@
+{
+  "type": "create:mechanical_crafting",
+  "category": "redstone",
+  "accept_mirrored": true,
+  "key": {
+    "A": { "item": "create:andesite_alloy" },
+    "I": { "item": "minecraft:iron_ingot" },
+    "S": { "item": "create:shaft" },
+    "B": { "item": "pocketgenerators:resource_generator_basic" }
+  },
+  "pattern": [
+    "AAAA",
+    "AISA",
+    "ASIA",
+    "AAAB"
+  ],
+  "result": { "id": "pocketgenerators:resource_generator_andesite", "count": 1 }
+}

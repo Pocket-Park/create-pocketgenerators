@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": { "item": "minecraft:cobblestone" },
+    "I": { "item": "minecraft:iron_nugget" },
+    "S": { "item": "create:shaft" },
+    "R": { "item": "minecraft:redstone" }
+  },
+  "pattern": [
+    "CIC",
+    "ISI",
+    "CRC"
+  ],
+  "result": { "id": "pocketgenerators:resource_generator_basic", "count": 1 }
+}

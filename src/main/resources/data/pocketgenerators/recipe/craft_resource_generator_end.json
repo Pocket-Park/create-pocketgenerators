@@ -1,0 +1,19 @@
+{
+  "type": "create:mechanical_crafting",
+  "category": "redstone",
+  "accept_mirrored": true,
+  "key": {
+    "E": { "item": "minecraft:shulker_shell" },
+    "P": { "item": "minecraft:ender_pearl" },
+    "C": { "item": "minecraft:chorus_fruit" },
+    "D": { "item": "pocketgenerators:resource_generator_brass" }
+  },
+  "pattern": [
+    "EEEEE",
+    "EPCPE",
+    "ECDCE",
+    "EPCPE",
+    "EEEEE"
+  ],
+  "result": { "id": "pocketgenerators:resource_generator_end", "count": 1 }
+}

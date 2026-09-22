@@ -1,0 +1,19 @@
+{
+  "type": "create:mechanical_crafting",
+  "category": "redstone",
+  "accept_mirrored": true,
+  "key": {
+    "Z": { "item": "create:brass_ingot" },
+    "P": { "item": "create:precision_mechanism" },
+    "I": { "item": "minecraft:iron_ingot" },
+    "D": { "item": "pocketgenerators:resource_generator_andesite" }
+  },
+  "pattern": [
+    "ZZZZZ",
+    "ZPIPZ",
+    "ZIDIZ",
+    "ZPIPZ",
+    "ZZZZZ"
+  ],
+  "result": { "id": "pocketgenerators:resource_generator_brass", "count": 1 }
+}

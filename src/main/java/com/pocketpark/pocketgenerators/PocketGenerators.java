@@ -9,7 +9,6 @@ import com.pocketpark.pocketgenerators.registry.ModBlocks;
 import com.pocketpark.pocketgenerators.registry.ModItems;
 import com.pocketpark.pocketgenerators.registry.ModRecipeSerializers;
 import com.pocketpark.pocketgenerators.registry.ModRecipeTypes;
-import com.pocketpark.pocketgenerators.network.SetOutputCountPayload;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -55,13 +53,7 @@ public class PocketGenerators {
         CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(ResourceGeneratorBlockEntity::registerCapabilities);
-        modEventBus.addListener(this::registerPayloads);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-    }
-
-    private void registerPayloads(RegisterPayloadHandlersEvent event) {
-        event.registrar("1")
-                .playToServer(SetOutputCountPayload.TYPE, SetOutputCountPayload.STREAM_CODEC, SetOutputCountPayload::handle);
     }
 }
