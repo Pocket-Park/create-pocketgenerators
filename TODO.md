@@ -17,9 +17,15 @@
 ## Publication
 
 - [ ] Décider d'une licence de distribution (actuellement `All Rights Reserved` par défaut dans `gradle.properties`, choix à confirmer si publication prévue).
-- [ ] Publier une première version (CurseForge/Modrinth) si l'intention est de distribuer le mod au-delà d'un usage personnel/serveur privé.
+- [x] Structure de branches `main`/`dev` + workflows de release/snapshot mis en place (`.github/workflows/release.yml`, `.github/workflows/snapshot.yml`).
+- [ ] Créer le projet sur Modrinth et récupérer son slug/ID.
+- [ ] Créer un token API Modrinth (Modrinth → Settings → API Keys, scope `Create versions`).
+- [ ] Ajouter les secrets GitHub `MODRINTH_TOKEN` et `MODRINTH_PROJECT_ID` (Settings → Secrets and variables → Actions du repo).
+- [ ] Pousser la branche `dev` sur `origin` pour activer `snapshot.yml`.
+- [ ] Premier tag `v0.1.0` (ou une version bump) pour valider `release.yml` de bout en bout.
 
 ## Notes
 
-- Pas de tests unitaires dans le projet ; la CI (`.github/workflows/build.yml`) ne fait que compiler.
+- Pas de tests unitaires dans le projet ; `build.yml` ne fait que compiler sur push/PR.
+- `release.yml`/`snapshot.yml` utilisent l'action `Kir-Antipov/mc-publish` — pas de plugin Gradle Modrinth, le jar buildé est publié tel quel.
 - `TEMPLATE_LICENSE.txt` est la licence MIT du template NeoForge MDK lui-même, pas celle du mod — normal, à laisser tel quel.

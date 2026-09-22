@@ -17,7 +17,17 @@ Voir [README.md](README.md) pour le fonctionnement côté joueur, [docs/API.md](
 ./gradlew runClient     # lance un client de dev avec le mod chargé
 ```
 
-CI GitHub Actions (`.github/workflows/build.yml`) : build seul sur push/PR, pas de tests automatisés (aucun test unitaire dans le projet).
+CI GitHub Actions : build seul sur push/PR (`build.yml`), pas de tests automatisés (aucun test unitaire dans le projet).
+
+## Branches & releases
+
+- `main` : stable, protégée en pratique par convention (pas de commits directs de features, seulement des merges validés).
+- `dev` : reçoit les commits courants. Chaque push déclenche `snapshot.yml` qui build et publie une version beta sur Modrinth (`<mod_version>-dev.<sha court>`).
+- Un tag `vX.Y.Z` sur `main` déclenche `release.yml` : build, création d'une GitHub Release avec le jar attaché, et publication d'une version release sur Modrinth. Le corps du tag annoté sert de changelog.
+
+Secrets GitHub requis (Settings → Secrets and variables → Actions) : `MODRINTH_TOKEN` (token API Modrinth), `MODRINTH_PROJECT_ID` (slug ou ID du projet Modrinth). Sans ces secrets, `release.yml`/`snapshot.yml` échouent à l'étape de publication mais le build reste vert.
+
+Processus de release : bump `mod_version` dans `gradle.properties`, merge `dev` → `main`, puis `git tag -a vX.Y.Z -m "..." && git push origin vX.Y.Z`.
 
 ## Structure du code
 
