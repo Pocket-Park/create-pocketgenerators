@@ -27,6 +27,8 @@ CI GitHub Actions : build seul sur push/PR (`build.yml`), pas de tests automatis
 
 Secrets GitHub requis (Settings → Secrets and variables → Actions) : `MODRINTH_TOKEN` (token API Modrinth), `MODRINTH_PROJECT_ID` (slug ou ID du projet Modrinth). Sans ces secrets, `release.yml`/`snapshot.yml` échouent à l'étape de publication mais le build reste vert.
 
+CurseForge (releases uniquement, pas les snapshots) : `CURSEFORGE_TOKEN` (token API CurseForge) et `CURSEFORGE_PROJECT_ID` (ID numérique du projet). Si `CURSEFORGE_TOKEN` est absent, l'étape CurseForge de `release.yml` est simplement sautée. Les dépendances y sont déclarées par ID CurseForge (Create 328085, JEI 238222).
+
 Processus de release : bump `mod_version` dans `gradle.properties`, merge `dev` → `main`, puis `git tag -a vX.Y.Z -m "..." && git push origin vX.Y.Z`.
 
 ## Structure du code

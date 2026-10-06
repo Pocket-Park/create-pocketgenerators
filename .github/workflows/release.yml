@@ -8,6 +8,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      # Exposed at job level so the CurseForge step can be skipped when the secret is not set yet
+      CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -64,3 +67,21 @@ jobs:
           dependencies: |
             create required
             jei optional
+
+      - name: Publish to CurseForge
+        if: ${{ env.CURSEFORGE_TOKEN != '' }}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: ${{ secrets.CURSEFORGE_PROJECT_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: build/libs/!(*-sources|*-dev).jar
+          name: Pocket Generators ${{ github.ref_name }}
+          version: ${{ github.ref_name }}
+          version-type: release
+          changelog: ${{ steps.changelog.outputs.body }}
+          loaders: neoforge
+          game-versions: 1.21.1
+          java: 21
+          dependencies: |
+            create(required){curseforge:328085}
+            jei(optional){curseforge:238222}
